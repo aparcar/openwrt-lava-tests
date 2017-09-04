@@ -1,0 +1,26 @@
+metadata:
+    format: Lava-Test Test Definition 1.0
+    name: hacking_session
+    description: "Start the hacking session on OpenWrt"
+    maintainer:
+        - lynxis@fe80.eu
+    os:
+        - lede
+    scope:
+        - functional
+    devices:
+        - tl-wr841-v9
+
+install:
+    deps:
+        - sh
+run:
+    steps:
+        - lava-test-case lede-netstat --shell netstat -an
+        - lava-test-case lede-ip-address-show --shell ip address show
+        - lava-test-case lede-echo-foo --shell echo "Please wait. The next kangoroo is reserved for you."
+        # 10 days should be enough :)
+        - sleep 864000
+
+parse:
+    pattern: "(?P<test_case_id>.*-*):\\s+(?P<result>(pass|fail))"
