@@ -34,7 +34,7 @@ actions:
         login_commands:
           - "while ! ip route show |grep 192.168.201 ; do echo waiting for 192.168.201 route ; sleep 1 ; done"
           - "echo link"
-          - "uci set firewall.@zone[1].input='REJECT'"
+          - "uci set firewall.@zone[1].input='ACCEPT'"
           - "uci commit"
           - "/etc/init.d/firewall stop"
           - "while ! netstat -pltnu |grep -q dropbear ; do sleep 1 ; done"
