@@ -1,0 +1,63 @@
+device_type: ar71xx_tl-wr841-v9
+job_name: sysupgrade loop
+
+timeouts:
+  job:
+    minutes: 10
+  action:
+    seconds: 600
+  connection:
+    minutes: 5
+
+visibility: public
+
+actions:
+  - deploy:
+     timeout:
+       minutes: 2
+     to: tftp
+     kernel:
+       url: https://repo.fe80.eu/lava/silver/lede-ar71xx-generic-tl-wr841-v9-initramfs-kernel.bin
+     os: lede
+
+  - boot:
+      method: u-boot
+      commands: ramdisk
+      type: bootm
+      prompts:
+        - 'root@lede:'
+        - 'root@\(none\):'
+        - 'root@LEDE:'
+      auto_login:
+        login_prompt: 'kmodloader: done loading kernel modules from /etc/modules.d/'
+        username: 'root'
+        login_commands:
+          - "while ! ip route show |grep 192.168.201 ; do echo waiting for 192.168.201 route ; sleep 1 ; done"
+          - "echo link"
+          - "uci set firewall.@zone[1].input='REJECT'"
+          - "uci commit"
+          - "/etc/init.d/firewall stop"
+          - "while ! netstat -pltnu |grep -q dropbear ; do sleep 1 ; done"
+
+  - deploy:
+      to: ssh
+      os: lede
+      prompts:
+        - 'lava-test: #'
+
+  - boot:
+      method: ssh
+      connection: ssh
+      prompts:
+        - 'lava-test: #'
+
+  - test:
+      timeout:
+        minutes: 5
+      name: singlenode-mustang-demo
+      definitions:
+        - repository: https://code.fe80.eu/lede/lava-tests.git
+          from: git
+          path: tests/sysupgradeloop/sysupgradeloop.yml
+          name: sysupgradeloop
+
