@@ -1,0 +1,24 @@
+metadata:
+    format: Lava-Test Test Definition 1.0
+    name: iperf
+    description: "waits until a default gateway is set and run an iperf test over it"
+    maintainer:
+        - lynxis@fe80.eu
+    os:
+        - lede
+    scope:
+        - functional
+    devices:
+        - tl-w8970-v1
+
+install:
+    deps:
+        - sh
+
+run:
+    steps:
+        - lava-test-case ping --shell ping 192.168.1.1
+
+parse:
+    pattern: "(?P<test_case_id>.*-*):\\s+(?P<result>(pass|fail))"
+
