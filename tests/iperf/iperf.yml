@@ -17,7 +17,9 @@ install:
 
 run:
     steps:
-        - lava-test-case ping --shell ping 192.168.1.1
+        - lava-test-case ping-google-dns --shell ping -c 3 8.8.8.8
+        - lava-test-case ping-lunarius --shell ping -c 3 lunarius.fe80.eu
+        - lava-test-case iperf -c lunarius.fe80.eu
 
 parse:
     pattern: "(?P<test_case_id>.*-*):\\s+(?P<result>(pass|fail))"

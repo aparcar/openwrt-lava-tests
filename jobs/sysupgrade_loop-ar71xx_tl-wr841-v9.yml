@@ -60,4 +60,3 @@ actions:
           from: git
           path: tests/sysupgradeloop/sysupgradeloop.yml
           name: sysupgradeloop
-
