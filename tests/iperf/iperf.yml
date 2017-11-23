@@ -19,7 +19,7 @@ run:
     steps:
         - lava-test-case ping-google-dns --shell ping -c 3 8.8.8.8
         - lava-test-case ping-lunarius --shell ping -c 3 lunarius.fe80.eu
-        - ./iperf.sh
+        - ./tests/iperf/iperf.sh
 
 parse:
     pattern: "(?P<test_case_id>.*-*):\\s+(?P<result>(pass|fail))"
