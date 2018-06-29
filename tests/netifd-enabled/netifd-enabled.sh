@@ -80,10 +80,12 @@ ip rule show
 check_rules rules "^100:"
 check_rules rules "^110:"
 
-_log "reloading netifd"
+_log "reloading netifd with lan.enabled=0"
 uci set network.lan.enabled=0
 ubus call network reload
 sleep 5
+
+_log "reloading netifd with lan.enabled=1"
 uci set network.lan.enabled=1
 ubus call network reload
 sleep 5
