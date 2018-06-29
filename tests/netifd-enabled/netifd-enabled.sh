@@ -85,6 +85,16 @@ uci set network.lan.enabled=0
 ubus call network reload
 sleep 5
 
+_log "check if rule NOT appear"
+if ip rule show |grep -q '^100:' ; then
+	lava-test-case netifd-enabled --result failure
+	exit 1
+fi
+if ip rule show |grep -q '^110:' ; then
+	lava-test-case netifd-enabled --result failure
+	exit 1
+fi
+
 _log "reloading netifd with lan.enabled=1"
 uci set network.lan.enabled=1
 ubus call network reload
