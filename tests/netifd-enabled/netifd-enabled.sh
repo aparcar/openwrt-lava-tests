@@ -22,6 +22,11 @@ LANNET=192.168.91.0
 _log "disabled kernel messages"
 dmesg -n 1
 
+_log "cat /etc/openwrt_release"
+cat /etc/openwrt_release
+_log "opkg netifd package:"
+opkg list_installed |grep netifd
+
 uci show
 uci set network.lan.enabled=1
 uci set network.lan.ipaddr=$LANIP
