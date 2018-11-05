@@ -40,7 +40,7 @@ actions:
           - "uci set firewall.@zone[1].input='ACCEPT'"
           - "uci commit"
           - "/etc/init.d/firewall reload"
-          - "while ! netstat -pltnu |grep dropbear ; do sleep 1 ; echo no dropbear; done"
+          - "while ! netstat -pltnu |grep dropbear; do sleep 1; echo waiting for dropbear to start; done"
 
   - deploy:
       to: ssh
