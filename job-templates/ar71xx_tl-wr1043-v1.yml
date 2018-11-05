@@ -1,5 +1,5 @@
 device_type: ar71xx_tl-wr1043-v1
-job_name: Do basic checks
+job_name: JOB_NAME
 
 timeouts:
   job:
