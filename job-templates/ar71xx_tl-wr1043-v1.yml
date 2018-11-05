@@ -36,10 +36,10 @@ actions:
         username: 'root'
         login_commands:
           - "while ! ip route show |grep default; do echo waiting for default route; sleep 1; done"
-          - "echo link"
+          - "echo link; echo allowing incoming connection via wan."
           - "uci set firewall.@zone[1].input='ACCEPT'"
           - "uci commit"
-          - "/etc/init.d/firewall stop"
+          - "/etc/init.d/firewall reload"
           - "while ! netstat -pltnu |grep dropbear ; do sleep 1 ; echo no dropbear; done"
 
   - deploy:
