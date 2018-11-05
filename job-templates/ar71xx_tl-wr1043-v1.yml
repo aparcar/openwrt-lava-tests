@@ -1,0 +1,65 @@
+device_type: ar71xx_tl-wr1043-v1
+job_name: Do basic checks
+
+timeouts:
+  job:
+    minutes: 10
+  action:
+    seconds: 600
+  connection:
+    minutes: 5
+
+visibility: public
+
+actions:
+  - deploy:
+     timeout:
+       minutes: 2
+     to: tftp
+     kernel:
+       url: IMAGE_URL
+     os: lede
+
+  - boot:
+      timeout:
+        minutes: 5
+      method: u-boot
+      commands: ramdisk
+      type: bootm
+      prompts:
+        - 'root@lede:'
+        - 'root@\(none\):'
+        - 'root@LEDE:'
+        - 'root@OpenWrt:'
+      auto_login:
+        login_prompt: 'kmodloader: done loading kernel modules from /etc/modules.d/'
+        username: 'root'
+        login_commands:
+          - "while ! ip route show |grep 192.168.201 ; do echo waiting for 192.168.201 route ; sleep 1 ; done"
+          - "echo link"
+          - "uci set firewall.@zone[1].input='ACCEPT'"
+          - "uci commit"
+          - "/etc/init.d/firewall stop"
+          - "while ! netstat -pltnu |grep dropbear ; do sleep 1 ; echo no dropbear; done"
+
+  - deploy:
+      to: ssh
+      os: lede
+      prompts:
+        - 'lava-test: #'
+
+  - boot:
+      method: ssh
+      connection: ssh
+      prompts:
+        - 'lava-test: #'
+
+  - test:
+      timeout:
+        minutes: 5
+      name: basic
+      definitions:
+        - repository: https://code.fe80.eu/openwrt-lava/lava-tests.git
+          from: git
+          path: tests/basic/basic.yml
+          name: basic
