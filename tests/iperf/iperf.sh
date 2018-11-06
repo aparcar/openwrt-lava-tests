@@ -1,4 +1,6 @@
-#!/bin/sh -e -x
+#!/bin/sh -e
+
+set -x
 
 # iperf.lava must be redirected to a iperf host in the same network
 if opkg list_installed |grep -q iperf ; then
