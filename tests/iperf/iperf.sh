@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 
 # iperf.lava must be redirected to a iperf host in the same network
 iperf -c iperf.lava -f m >/tmp/iperf.output 2>&1
