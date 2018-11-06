@@ -8,7 +8,7 @@ if opkg list_installed |grep -q iperf ; then
     opkg install iperf
 fi
 
-iperf -c iperf.lava -f m >/tmp/iperf.output 2>&1
+iperf -c iperf.lava -f m >/tmp/iperf.output
 
 cat /tmp/iperf.output
 MBIT=$(tail -n1 /tmp/iperf.output | awk '{ print $7 }')
