@@ -63,3 +63,7 @@ actions:
           from: git
           path: tests/basic/basic.yml
           name: basic
+        - repository: https://code.fe80.eu/openwrt-lava/lava-tests.git
+          from: git
+          path: tests/iperf/iperf.yml
+          name: iperf
