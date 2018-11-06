@@ -1,6 +1,11 @@
 #!/bin/sh -e
 
 # iperf.lava must be redirected to a iperf host in the same network
+if opkg list_installed |grep -q iperf ; then
+    opkg update
+    opkg install iperf
+fi
+
 iperf -c iperf.lava -f m >/tmp/iperf.output 2>&1
 
 cat /tmp/iperf.output
