@@ -17,10 +17,6 @@ install:
 
 run:
     steps:
-        - ./tests/iperf/wait_for_default.sh
-        - lava-test-case ping-google-dns --shell ping -c 3 8.8.8.8
-        - lava-test-case ping-lunarius --shell ping -c 3 lunarius.fe80.eu
-        - lava-test-case kernel-version --shell cat /proc/version
         - ./tests/iperf/iperf.sh
 
 parse:
