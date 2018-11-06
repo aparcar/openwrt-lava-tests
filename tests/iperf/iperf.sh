@@ -1,6 +1,8 @@
 #!/bin/sh
 
-iperf -c lunarius.fe80.eu -f m >/tmp/iperf.output 2>&1
+# iperf.lava must be redirected to a iperf host in the same network
+iperf -c iperf.lava -f m >/tmp/iperf.output 2>&1
+
 cat /tmp/iperf.output
 MBIT=$(tail -n1 /tmp/iperf.output | awk '{ print $7 }')
 
