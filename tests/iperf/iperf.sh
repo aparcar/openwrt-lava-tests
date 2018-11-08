@@ -8,6 +8,10 @@ if ! opkg list_installed |grep -q iperf ; then
     opkg install iperf
 fi
 
+echo "whitelisting domain lava from rebinding protections"
+uci add_list dhcp.@dnsmasq[0].rebind_domain=lava
+/etc/init.d/dnsmasq reload
+
 iperf -c iperf.lava -f m >/tmp/iperf.output
 
 cat /tmp/iperf.output
