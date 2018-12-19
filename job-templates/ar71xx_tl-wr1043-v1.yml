@@ -47,12 +47,14 @@ actions:
       os: lede
       prompts:
         - 'lava-test: #'
+        - 'root@OpenWrt:'
 
   - boot:
       method: ssh
       connection: ssh
       prompts:
         - 'lava-test: #'
+        - 'root@OpenWrt:'
 
   - test:
       timeout:
