@@ -10,6 +10,9 @@ timeouts:
     minutes: 5
 
 visibility: public
+metadata:
+  openwrt-ci: true
+  openwrt-commit: COMMIT
 
 actions:
   - deploy:
