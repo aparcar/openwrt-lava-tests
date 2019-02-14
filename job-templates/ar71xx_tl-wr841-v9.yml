@@ -13,7 +13,7 @@ visibility: public
 metadata:
   openwrt-ci: true
   openwrt-commit: COMMIT
-
+  openwrt-branch: BRANCH
 
 actions:
   - deploy:
