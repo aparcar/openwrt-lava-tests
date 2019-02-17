@@ -1,5 +1,5 @@
 device_type: ar71xx_tl-wr841-v9
-job_name: JOB_NAME
+job_name: this job name will be replaced by create-job.py
 
 timeouts:
   job:
@@ -10,10 +10,6 @@ timeouts:
     minutes: 5
 
 visibility: public
-metadata:
-  openwrt-ci: true
-  openwrt-commit: COMMIT
-  openwrt-branch: BRANCH
 
 actions:
   - deploy:
