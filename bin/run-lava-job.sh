@@ -24,16 +24,16 @@ fi
 
 if [ -z "$JOB_NAME" ] ; then
 	echo "You need to define a job name $JOB_NAME"
-	exit -1
+	exit 1
 fi
 if [ -z "$IMAGE_URL" ] ; then
 	echo "You need to define a url $IMAGE_URL"
-	exit -1
+	exit 1
 fi
 
 if [ -z "$TEMPLATE_FILE" ] ; then
 	echo "You need to define a $TEMPLATE_FILE"
-	exit -1
+	exit 1
 fi
 
 if ! type create-job.py 2>/dev/null >&2 ; then
