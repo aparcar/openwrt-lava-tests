@@ -42,7 +42,8 @@ def parse_metadata(args):
                 raise RuntimeError("Can not parse argument 'meta %s'" % meta)
 
     if args.metafile:
-        metadata.update(json.load(args.metafile))
+        for meta in args.metafile:
+            metadata.update(json.load(meta))
 
     return metadata
 
