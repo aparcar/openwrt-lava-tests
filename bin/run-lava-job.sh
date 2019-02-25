@@ -36,6 +36,16 @@ if [ -z "$TEMPLATE_FILE" ] ; then
 	exit -1
 fi
 
+if ! type create-job.py 2>/dev/null >&2 ; then
+	this=$(dirname "$0")
+	if [ -x "$this/create-job.py" ] ; then
+		export PATH="$PATH:$this"
+	else
+		echo "Can not find create-job.py to generate lava jobs"
+		exit 1
+	fi
+fi
+
 jenkins_message() {
 	echo "=================================="
 	echo "== $@"
