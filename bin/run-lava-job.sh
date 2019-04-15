@@ -111,7 +111,7 @@ jenkins_message "created job $JOB_ID - https://$LAVA_DOMAIN/scheduler/job/$JOB_I
 echo "wait until job $JOB_ID is done"
 while ! job_done "$JOB_ID" ; do
 	echo -n .
-	sleep 1
+	sleep 30
 done
 
 job_status "$JOB_ID"
