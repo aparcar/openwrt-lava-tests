@@ -54,7 +54,7 @@ jenkins_message() {
 
 job_done() {
 	local jobid="$1"
-	lava-tool job-status "$LAVA_URL" $jobid |egrep -q '(Complete|Incomplete|Canceled|Canceling)'
+	lava-tool job-status "$LAVA_URL" "$jobid" |grep -E '(Complete|Incomplete|Canceled|Canceling)'
 }
 
 job_submit() {
