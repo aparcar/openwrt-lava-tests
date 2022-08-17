@@ -1,0 +1,21 @@
+metadata:
+    format: Lava-Test Test Definition 1.0
+    name: opkg
+    description: "Run basic commands on OpenWrt"
+    maintainer:
+        - mail@aparcar.org
+    os:
+        - posix
+    scope:
+        - functional
+
+run:
+    steps:
+        - lava-test-case kernel-version --shell cat /proc/version
+        - lava-test-case openwrt-version --shell cat /etc/openwrt_version
+        - lava-test-case opkg-update --shell opkg update
+        - lava-test-case opkg-install --shell opkg install tmux
+        - opkg list-installed | grep tmux
+
+parse:
+    pattern: "(?P<test_case_id>.*-*):\\s+(?P<result>(pass|fail))"
