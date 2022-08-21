@@ -1,0 +1,20 @@
+metadata:
+    format: Lava-Test Test Definition 1.0
+    name: wan
+    description: "Run basic commands on OpenWrt"
+    maintainer:
+        - mail@aparcar.org
+    os:
+        - posix
+    scope:
+        - functional
+
+run:
+    steps:
+        - lava-test-case wan-good-download --shell wget https://downloads.openwrt.org/releases/21.02.2/targets/armvirt/64/config.buildinfo
+        - lava-test-case wan-http-download --shell wget http://http.badssl.com/
+        - lava-test-case wan-letsencrypt-download --shell wget https://letsencrypt.org
+        - lava-test-case wan-mozilla-download --shell wget https://www.mozilla.org/
+        - lava-test-case wan-untrusted-root-download --shell wget https://untrusted-root.badssl.com/
+parse:
+    pattern: "(?P<test_case_id>.*-*):\\s+(?P<result>(pass|fail))"
